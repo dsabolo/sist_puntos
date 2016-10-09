@@ -1,0 +1,6 @@
+name = Sistema de Puntos
+description = Permite sumar puntos.
+core = 7.x
+version = "7.x-0"
+core = "7.x"
+project = "Puntos"
