@@ -4,7 +4,3 @@
  * @file
  * Module file for the Puntos App.
  */
-
-function puntos_init(){
-   drupal_set_message(t("Prueba!"), 'status', FALSE);
-}
