@@ -4,3 +4,43 @@
  * @file
  * Module file for the Puntos App.
  */
+
+//Adding Custom Validations
+function puntos_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if($form_id=='canjeo_puntos_node_form'){
+        $form['#validate'][] = 'puntos_custom_validate';
+  }
+
+}
+
+//Validate if have enouth points
+function puntos_custom_validate($form, &$form_state) {
+
+  if(isset($form_state['values']['field_paciente']['und'][0]['target_id'])){
+
+      $paciente = $form_state['values']['field_paciente']['und'][0]['target_id'];
+      $puntos_a_descontar = $form_state['values']['field_puntos']['und'][0]['value'];
+      $puntos_acumulados = puntos_get_puntos($paciente);
+
+      if(($puntos_acumulados + $puntos_a_descontar)<0){
+          if($puntos_acumulados!=0){
+              form_set_error('field_puntos', 'No puede descontar más que '.$puntos_acumulados.' para este paciente');
+          }
+          if($puntos_acumulados==0){
+              form_set_error('field_puntos', 'El paciente aún no tiene puntos acumulados. No puede canjear puntos.');
+          }
+
+      }
+
+  }
+}
+
+
+
+function puntos_get_puntos($paciente) {
+
+$query = db_query('SELECT SUM(p.field_puntos_value) as puntos FROM {field_data_field_puntos} p INNER JOIN {field_data_field_paciente} u WHERE p.entity_id= u.entity_id AND u.field_paciente_target_id=:paciente', array(':paciente'=>$paciente));
+$result = $query->fetchObject();
+if($result->puntos > 0){ return $result->puntos; }
+else {return 0;}
+}
