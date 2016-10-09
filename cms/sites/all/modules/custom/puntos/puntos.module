@@ -5,11 +5,6 @@
  * Module file for the Puntos App.
  */
 
-function puntos_menu(){
-  $items['puntos/consultar'] = array(
-      'page callback' => 'consultar_puntos_page',
-      'page arguments' => array(2),
-      'access arguments' => array('access content'),
-    );
-    return $items;
+function puntos_init(){
+   print_r("Prueba"); die();
 }
