@@ -1,0 +1,13 @@
+name = Menu PPal
+core = 7.x
+package = SistemaPuntos
+dependencies[] = features
+dependencies[] = menu
+features[features_api][] = api:2
+features[menu_custom][] = main-menu
+features[menu_links][] = main-menu_canjear-puntos:node/add/canjeo-puntos
+features[menu_links][] = main-menu_nuevo-paciente:node/add/paciente
+features[menu_links][] = main-menu_pacientes:pacientes
+features[menu_links][] = main-menu_puntos:consultar-puntos
+features[menu_links][] = main-menu_sumar-puntos:node/add/puntos
+project path = sites/all/modules/features
