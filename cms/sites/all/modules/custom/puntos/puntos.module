@@ -6,5 +6,5 @@
  */
 
 function puntos_init(){
-   print_r("Prueba"); 
+   drupal_set_message(t("Prueba!"), 'status', FALSE);
 }
