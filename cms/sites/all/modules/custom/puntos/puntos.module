@@ -6,5 +6,5 @@
  */
 
 function puntos_init(){
-   print_r("Prueba"); die();
+   print_r("Prueba"); 
 }
