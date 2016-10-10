@@ -19,12 +19,17 @@ function puntos_custom_validate($form, &$form_state) {
   if(isset($form_state['values']['field_paciente']['und'][0]['target_id'])){
 
       $paciente = $form_state['values']['field_paciente']['und'][0]['target_id'];
+      $premio = node_load($form_state['values']['field_premio']['und'][0]['target_id']);
+
+      $form_state['values']['field_puntos']['und'][0]['value'] =  $premio->field_puntos['und'][0]['value'];
       $puntos_a_descontar = $form_state['values']['field_puntos']['und'][0]['value'];
+      $form_state['values']['field_descripci_n']['und'][0]['value'] =  $premio->title;
+
       $puntos_acumulados = puntos_get_puntos($paciente);
 
       if(($puntos_acumulados + $puntos_a_descontar)<0){
           if($puntos_acumulados!=0){
-              form_set_error('field_puntos', 'No puede descontar más que '.$puntos_acumulados.' para este paciente');
+              form_set_error('field_puntos', 'No puede descontar más que '.$puntos_acumulados.' para este paciente. El premio <b>'.$premio->title.'</b> solicitado vale '.$puntos_a_descontar.' puntos');
           }
           if($puntos_acumulados==0){
               form_set_error('field_puntos', 'El paciente aún no tiene puntos acumulados. No puede canjear puntos.');
